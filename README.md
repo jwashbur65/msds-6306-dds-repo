@@ -1,5 +1,8 @@
 # Jeff Washburn MSDS 6306 Repo
 
+## Purpose
+Purpose of this repository is to track my homework assignments for MSDS 6306 Doing Data Science class
+
 ## Folder Structure 
 * code: Any custom code like functions that are used 
 * data: Any data sets referenced 
