@@ -10,5 +10,5 @@ Purpose of this repository is to track my homework assignments for MSDS 6306 Doi
 
 ## Contact info
 Jeff Washburn
-jwashbur65@gmail.com
-washburnj@mail.smu.edu
+* jwashbur65@gmail.com
+* washburnj@mail.smu.edu
