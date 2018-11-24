@@ -1,7 +1,7 @@
 ---
 title: "Homework 3"
 author: "Jeff Washburn"
-date: "11/21/2018"
+date: "11/26/2018"
 output: html_document
 ---
 
