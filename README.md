@@ -7,3 +7,8 @@ Purpose of this repository is to track my homework assignments for MSDS 6306 Doi
 * code: Any custom code like functions that are used 
 * data: Any data sets referenced 
 * homework: Homework with separate folders for each assignment 
+
+## Contact info
+Jeff Washburn
+jwashbur65@gmail.com
+washburnj@mail.smu.edu
