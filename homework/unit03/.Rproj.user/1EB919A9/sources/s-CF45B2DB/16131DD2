@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1543041630410.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "16131DD2",
+    "lastKnownWriteTime" : 1543048757,
+    "last_content_update" : 1543048757306,
+    "path" : "~/GoogleDrive_jwashbur65/SMU/msds_6306_doing_data_science/msds-6306-dds-repo/homework/unit03/homework3.Rmd",
+    "project_path" : "homework3.Rmd",
+    "properties" : {
+        "cursorPosition" : "161,38",
+        "last_setup_crc32" : "",
+        "scrollLine" : "162"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
