@@ -180,5 +180,5 @@ My repository found at [GitHub](https://github.com/jwashbur65/msds-6306-dds-repo
 In case the link doesn't work, URL to repo is:  
 https://github.com/jwashbur65/msds-6306-dds-repo  
 
-Direct link to Homework 3 (where you'll find the JWashburn_Livesession3assignment.Rmd)  
-https://github.com/jwashbur65/msds-6306-dds-repo/tree/master/homework/unit03
+Direct link to Homework 3 (where you'll find the JWashburn_Livesession3assignment.Rmd)
+https://github.com/jwashbur65/msds-6306-dds-repo/tree/master/homework/6306_hw_3
