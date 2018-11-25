@@ -1,0 +1,128 @@
+---
+title: "JWashburn_Livesession2assignment"
+author: "Jeff Washburn"
+date: "11/16/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### **Q1** (20 points) Put the following questions into RMarkdown as headers (or subheaders if you’re making question numbers headings). Be sure to answer the questions underneath each header.  
+
+#### What is a basic workflow for reproducible research?
+* Data Gathering --> Data Analysis --> Results Presentation  
+
+#### What are five practical tips for making research reproducible?
+1. Document everything
+2. Everything is a (text) file
+3. All files should be human readable
+4. Explicitly tie your files together
+5. Have a plan to organize, store, and make your files available
+
+#### Give an example of how you might implement each tip.
+1. Document everything
+    + All source code files will contain header information including name, date, purpose of the file
+    + Source code will contain comments
+    + RMarkdown will be used to format and keep documentation clean and flow with the code
+2. Everything is a (text) file
+    + All source code and documentation will be in simple text format. Meaning no microsoft word documents or any other encoded type file
+    + Text files can be viewed in most basic editor, does not require any special software
+3. All files should be human readable
+    + Not everyone will understand the code that I write (I'll even forget what the logic was), so breakdown complex logic as much as possible, document things like functions, the purpose of it, the parameters and the return value.
+    + Will format code to a style guide 
+4. Explicitly tie files together
+    + Individual text files will have relationships with one another.
+    + Will make the links between files explicit using packages/programs like knitr
+5. Have a plan to organize, store, and make your files available
+    + Will limit the amount of content in files to make sure they are not too big or complex
+    + Will organize files in such a way that outside parties can access and know how they fit together
+    + Files will be more modular, serve a single purpose rather than cramming all the code in a single file
+
+#### Which one of these do you think will be the most difficult?
+* I think initially starting off, having multiple files and figuring out how to best link and navigate the files used will be more difficult.  Hopefully over time, this becomes second nature and there's a good process that I can follow.  I personally like to have things organized, so my hope is that this is just an extension of what I would normally do and expect to have happen without it becoming a lot of work :)
+
+
+### **Q2** (20 points) Download and complete “air_hist.R” code from the Files Tab on 2DS. You will build scatter plots using the plot function.
+a. As described in the “TODO Assignment 2: Question 2a” comment, complete the plot
+function regarding monthly temperature.
+* Done (see 2c)
+
+b. As described in the “TODO Assignment 2: Question 2b” comment, complete the plot
+function involving ozone.
+* Done (see 2c)
+
+c. Translate these to RMarkdown and put them in your overall homework RMarkdown file.  
+(Note: to read files in from file, put this in 3 tick marks: {r, code = readLines("air_hist.R")}) 
+
+```{r air_hist.R, echo=TRUE}
+###################################################################################
+# air_hist.R - Unit 2 Live Session Homework
+###################################################################################
+
+# We will be using the built-in dataset airquality which has daily air quality 
+# measurements in New York from May to September 1973
+str(airquality)
+
+# Take only Temp columns
+Temperature <- airquality$Temp
+hist(Temperature)
+
+# Histogram with added parameters
+hist(Temperature,
+     main="Maximum daily temperature at La Guardia Airport",
+     xlab="Temperature in degrees Fahrenheit",
+     xlim=c(50,100),
+     col="darkmagenta",
+     freq=FALSE
+)
+
+# TODO: Assignment 2, Q2A: Complete the following code to yield a scatterplot with x as Month and y as Temp
+# You're going to customize your plot slightly.  Use the help function to assist you if needed.
+# Make the x label "Month" and the y label "Temperature"
+# Finally, make the title of the plot "Temperature by Month" 
+plot(x=airquality$Month, 
+     y=Temperature,
+     xlab="Month",
+     ylab="Temperature",
+     main="Temperature by Month")
+
+# TODO: Assignment 2, Q2B: Build a scatter plot with x as Temperature and y as Ozone 
+# Complete the following code:
+# Make the x label "Temperature" and the y label "Ozone",
+# Make the title of the plot "Temperature vs Ozone"
+plot(x=Temperature, 
+     y=airquality$Ozone,
+     xlab="Temperature",
+     ylab="Ozone",
+     main="Temperature vs Ozone")
+```
+
+### **Q3** (20 points) Download and complete “knit_cars.Rmd” in the Files tab on 2DS. 
+a. As described in the “TODO Assignment 2: Question 3a” comment, complete a plot
+function for Temperature and Pressure
+* Done (see 3c)
+
+b. As described in the “TODO Assignment 2: Question 3b” comment, complete a similar
+plot function that reverses the two axes.
+* Done (see 3c)
+
+c. This is written in RMarkdown, so just transfer it to your RMarkdown script.
+```{r pressure_plot, echo=TRUE}
+# Using the built-in dataset pressure 
+plot(x=pressure$pressure, 
+     y=pressure$temperature,
+     main="Temperature vs Pressure",
+     xlab="Pressure",
+     ylab="Temperature")
+```
+
+```{r pressure_plot2, echo=TRUE}
+# Using the built-in dataset pressure
+plot(y=pressure$pressure, 
+     x=pressure$temperature,
+     main="Pressure vs Temperature",
+     xlab="Temperature",
+     ylab="Pressure")
+```
