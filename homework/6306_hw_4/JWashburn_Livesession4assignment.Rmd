@@ -1,0 +1,165 @@
+---
+title: "Homework 4"
+author: "Jeff Washburn"
+date: "12/03/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE)
+
+# set R env
+#Sys.setenv(XML_CONFIG="/usr/local/Cellar/libxml2/2.9.8/bin")
+#Sys.setenv(INCLUDE_DIR="/usr/local/Cellar/libxml2/2.9.8/include")
+#Sys.setenv(LIB_DIR="/usr/local/Cellar/libxml2/2.9.8/lib")
+#install.packages("rvest")
+
+# libraries
+library("rvest")
+library("dplyr")
+library("tidyr")
+library("ggplot2")
+library("knitr")
+library("ggplot2")
+```
+
+## 1. Harry Potter Cast (50%)
+
+### 1a. In the IMDB, there are listings of full cast members for movies. Navigate to http://www.imdb.com/title/tt1201607/fullcredits?ref_=tt_ql_1. Feel free to View Source to get a good idea of what the page looks like in code.
+
+### 1b. Scrape the page with any R package that makes things easy for you. Of particular interest is the table of the Cast in order of crediting. Please scrape this table (you might have to fish it out of several of the tables from the page) and make it a data.frame() of the Cast in your R environment
+
+```{r scrapeTable echo}
+url="https://www.imdb.com/title/tt1201607/fullcredits?ref_=tt_ql_1"
+table_path='//*[@id="fullcredits_content"]/table[3]'
+
+# Get tabel from url
+potter_table = url %>%
+  read_html() %>%
+  html_nodes(xpath=table_path) %>%
+  html_table(fill=T)
+# preview table (initially it's a list)
+#class(potter_table)
+#str(potter_table)
+
+# get the dataframe out
+df.potter_cast = potter_table[[1]]
+#colnames(df.potter_cast)
+#class(df.potter_cast)
+#str(df.potter_cast)
+
+# create table in LaTeX, Markdown 
+kable(head(df.potter_cast, 10), "markdown")
+```
+
+### 1c. Clean the table
+```{r echo=TRUE}
+# It should not have blank observations or rows, a row that should be column names, or just ‘…’  
+df.potter_cast.1c = df.potter_cast[c("X2", "X4")]
+df.potter_cast.1c = df.potter_cast.1c[-c(1), ]
+kable(head(df.potter_cast.1c, 5), "markdown")
+```
+
+```{r echo=TRUE}
+# It should have intuitive column names (ideally 2 to start – Actor and Character)
+colnames(df.potter_cast.1c)=c("Actor", "Character")
+#df.potter_cast.1c
+kable(head(df.potter_cast.1c, 5), "markdown")
+```
+
+```{r echo=TRUE}
+# In the film, Mr. Warwick plays two characters, which makes his row look a little weird. Please replace his character column with just “Griphook / Professor Filius Flitwick” to make it look better.
+df.potter_cast.1c = df.potter_cast.1c %>%
+  mutate(Character=replace(Character, Actor=="Warwick Davis", "Griphook / Professor Filius Flitwick")) %>%
+  as.data.frame()
+kable(head(df.potter_cast.1c, 10), "markdown")
+```
+
+```{r echo=TRUE}
+# One row might result in “Rest of cast listed alphabetically” – remove this observation.
+
+str(df.potter_cast.1c)
+# Remove "Rest of cast" observation
+df.potter_cast.1c = df.potter_cast.1c %>%
+  select(Actor, Character) %>%
+  filter (Actor != "Rest of cast listed alphabetically:")
+str(df.potter_cast.1c)
+
+# show results
+kable(head(df.potter_cast.1c, 10), "markdown")
+```
+
+### 1d. Split the Actor’s name into two columns: FirstName and Surname. Keep in mind that some actors/actresses have middle names as well. Please make sure that the middle names are in the FirstName column, in addition to the first name (example: given the Actor Frank Jeffrey Stevenson, the FirstName column would say “Frank Jeffrey.”)
+```{r echo=TRUE}
+df.potter_cast.1d = extract(df.potter_cast.1c, Actor, c("FirstName", "Surname"), "(\\w+ *\\w+) (.*)")
+kable(head(df.potter_cast.1d, 15), "markdown")
+```
+### 1e. Present the first 10 rows of the data.frame() – It should have only FirstName, Surname, and Character columns.
+```{r echo=TRUE}
+kable(head(df.potter_cast.1d, 10), "markdown")
+```
+***
+***
+
+## 2. SportsBall (50%)
+
+### 2a. On the ESPN website, there are statistics of each NBA player. Navigate to the San Antonio Spurs current statistics (likely http://www.espn.com/nba/team/stats/_/name/sa/san-antonio-spurs). You are interested in the Shooting Statistics table.
+
+### 2b. Scrape the page with any R package that makes things easy for you. There are a few tables on the page, so make sure you are targeting specifically the Shooting Statistics table.
+```{r echo=TRUE}
+url="http://www.espn.com/nba/team/stats/_/name/sa/san-antonio-spurs"
+table_path='//*[@id="my-players-table"]/div[3]/div[3]/table'
+
+# Get tabel from url
+table.spurs = url %>%
+  read_html() %>%
+  html_nodes(xpath=table_path) %>%
+  html_table(fill=T)
+
+# get the dataframe out
+df.spurs = table.spurs[[1]]
+
+# create table in LaTeX, Markdown 
+kable(head(df.spurs, 10), "markdown")
+```
+
+### 2c. Clean up the table (You might get some warnings if you’re working with tibbles)
+```{r echo=TRUE}
+# You’ll want to create an R data.frame() with one observation for each player. Make sure that you do not accidentally include blank rows, a row of column names, or the Totals row in the table as observations.
+
+# remove first 2 rows (Shooting Stats, Column names)
+nrow(df.spurs)
+columnNames=df.spurs[c(2), ]
+df.spurs.2c = df.spurs[-c(1:2), ]
+colnames(df.spurs.2c)=columnNames
+nrow(df.spurs.2c)
+
+# remove last row (totals)
+df.spurs.2c = df.spurs.2c[-c(nrow(df.spurs.2c)), ]
+nrow(df.spurs.2c)
+
+# The column PLAYER has two variables of interest in it: the player’s name and their position, denoted by 1-2 letters after their name. Split the cells into two columns, one with Name and the other Position.
+df.spurs.2c = extract(df.spurs.2c, PLAYER, c("NAME", "POSITION"), "(.*),(.*)")
+#kable(df.spurs.2c, "markdown")
+
+# Check the data type of all columns. Convert relevant columns to numeric. Check the data type of all columns again to confirm that they have changed!
+str(df.spurs.2c)
+# from: https://stackoverflow.com/questions/20880311/change-type-of-column-into-numeric
+df.spurs.2c[-(1:2)] = lapply(df.spurs.2c[-(1:2)], as.numeric)
+str(df.spurs.2c)
+kable(df.spurs.2c, "markdown")
+```
+
+### 2d. Create a colorful bar chart that shows the Field Goals Percentage Per Game for each person. It will be graded on the following criteria.
+```{r echo=TRUE}
+# To tilt players name
+# https://stackoverflow.com/questions/1330989/rotating-and-spacing-axis-labels-in-ggplot2
+p = ggplot(data=df.spurs.2c, aes(NAME, `FG%`)) +
+  geom_bar(stat="identity", aes(fill=POSITION), position="dodge2") +
+  xlab("Player") + ylab("Field Goal %") +
+  ggtitle("Player's Field Goal Percentage of Shots Made") +
+  theme(axis.text.x = element_text(angle = -65, hjust = 0), plot.title = element_text(hjust = 0.5))
+p
+```
+***
+***
