@@ -1,0 +1,25 @@
+---
+title: "6306_hw_4_api"
+author: "Jeff Washburn"
+date: "12/1/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# use quantmod
+library(quantmod)
+```
+
+```{r echo=TRUE}
+yahooQuote.EOD
+tickerSymbols="FB;AAPL;AMZN;NFLX;GOOG"
+quote=getQuote(tickerSymbols)
+quote
+str(quote)
+```
+
+```{r echo=TRUE}
+chartSeries(GOOG)
+```
