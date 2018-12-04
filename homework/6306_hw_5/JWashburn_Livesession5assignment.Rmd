@@ -1,0 +1,61 @@
+---
+title: "JWashburn_Livesession5assignment"
+author: "Jeff Washburn"
+date: "12/4/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Data Munging (30 points):
+Backstory: Your client is expecting a baby soon. However, he is not sure what to name the child. Being out of the loop, he hires you to help him figure out popular names. He provides for you raw data in order to help you make a decision.
+
+Utilize yob2016.txt for this question. This file is a series of popular children’s names born in the year 2016 in the United States. It consists of three columns with a first name, a gender, and the amount of children given that name. However, the data is raw and will need cleaning to make it tidy and usable.
+
+### 1a. First, import the .txt file into R so you can process it. Keep in mind this is not a CSV file. You might have to open the file to see what you’re dealing with. Assign the resulting data frame to an object, df, that consists of three columns with human-readable column names for each.
+```{r echo=TRUE}
+file.name = ("./data/yob2016.txt")
+df.yob16 = read.csv(file.name, header = FALSE, sep = ";")
+
+# Set the column names
+colnames(df.yob16) = c("Name", "Sex", "Total")
+```
+
+### 1b. Display the summary and structure of df
+```{r echo=TRUE}
+# Remove factor from first column
+str(df.yob16)
+df.yob16[1] = lapply(df.yob16[1], as.character)
+str(df.yob16)
+
+# Display the summary
+summary(df.yob16)
+
+# Display structure 
+str(df.yob16)
+df.yob16
+```
+
+
+### 1c. Your client tells you that there is a problem with the raw file. One name was entered twice and misspelled. The client cannot remember which name it is; there are thousands he saw! But he did mention he accidentally put three y’s at the end of the name. Write an R command to figure out which name it is and display it.
+```{r echo=TRUE}
+grep("y{3}$", df.yob16$Name, value=TRUE)
+grep("y{3}$", df.yob16$Name)
+```
+
+### 1d. Upon finding the misspelled name, please remove this particular observation, as the client says it’s redundant. Save the remaining dataset as an object: y2016
+```{r echo=TRUE}
+# verify size before
+nrow(df.yob16)
+
+# remove invalid entry
+df.yob16.clean1 = df.yob16[-(212), ]
+
+# verify size is 1 less after removal
+nrow(df.yob16.clean1)
+
+# search for name
+grep("y{3}$", df.yob16.clean1$Name)
+```
