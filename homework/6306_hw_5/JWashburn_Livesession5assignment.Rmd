@@ -13,6 +13,12 @@ library(dplyr)
 library(knitr)
 ```
 
+
+***
+## All files for this assignment found in github repository at:
+https://github.com/jwashbur65/msds-6306-dds-repo/tree/master/homework/6306_hw_5
+
+***
 ## 1. Data Munging (30 points):
 Backstory: Your client is expecting a baby soon. However, he is not sure what to name the child. Being out of the loop, he hires you to help him figure out popular names. He provides for you raw data in order to help you make a decision.
 
@@ -122,6 +128,8 @@ apply(final, 2, function(x) any(is.na(x)))
 # all false, looks clean
 ```
 
+***
+***
 
 ## 3. Data Summary (30 points):
 Utilize your data frame object final for this part.
