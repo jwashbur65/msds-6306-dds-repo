@@ -14,7 +14,7 @@ Report the top 10 Female Names totaled over 2015 and 2016.
 
 ## Reproduction
 
-Refer to .JWashburn_Livesession5assignment.RMD
+Refer to ./JWashburn_Livesession5assignment.RMD
 
 
 ## Contributing
