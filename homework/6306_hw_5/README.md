@@ -28,3 +28,9 @@ Refer to ./JWashburn_Livesession5assignment.RMD
 ## Authors
 
 **Jeff Washburn** - *Initial work* - [GitHub](https://github.com/jwashbur65/msds-6306-dds-repo/tree/master/homework/6306_hw_5)
+
+## Other Files in Repository
+* 6306_hw_5.Rproj: RStudio project file
+* JWashburn_Livesession5assignment.Rmd: RMarkdown for this project with all code to reproduce the results
+* JWashburn_Livesession5assignment.html: HTML output from running knitr against the RMarkdown file
+* data: data directory containing all the source/raw files along with the produced output (top10GirlNames.csv)
